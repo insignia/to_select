@@ -1,0 +1,33 @@
+to_select
+========
+
+This plugin extends Array and ActiveRecord::Base adding a method to_select() to
+create options for select helpers.
+
+In the case of ActiveRecord::Base it will do a find(:all) and return a list with
+all those records using the :name field to show the option and the :id to identify
+the record.
+In the case of Array it will expect it to be an array of ActiveRecord objects and
+do the same thing, create a list using name an id fields.
+On both cases the name field can be overriden using a parameter.
+
+Example
+=======
+
+<% form_for @account do |form| %>
+  <%= f.select :branch_id, Branch.to_select %>
+<% end %>
+
+or
+
+<% form_for @account do |form| %>
+  <%= f.select :branch_id, @branches.to_select %>
+<% end %>
+
+You can override the field name using a parameter:
+
+  <%= f.select :person_id, @people.to_select(:last_name) %>
+
+
+
+Copyright (c) 2008 Carlos Kozuszko, released under the MIT license
