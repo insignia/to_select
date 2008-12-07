@@ -30,11 +30,16 @@ describe ActiveRecord::Base do
       ActiveRecord::Base.to_select(:some_field) == [['some_field1', 1], ['some_field2', 2]]
     end
 
-    it "should return a new array with [some_field, id] touples with the records filtered by some_condition" do
-      ActiveRecord::Base.should_receive(:find).with(:all, :conditions => 'some_condition').and_return(@records)
-      ActiveRecord::Base.to_select(:some_field, 'some_condition') == [['some_field1', 1], ['some_field2', 2]]
-    end
+  end
 
+  it "should return a new array with [some_field, id] touples with the records filtered by some_condition" do
+    ActiveRecord::Base.should_receive(:find).with(:all, :conditions => 'some_condition').and_return(@records)
+    ActiveRecord::Base.to_select(:some_field, :conditions => 'some_condition') == [['some_field1', 1], ['some_field2', 2]]
+  end
+
+  it "should return a new array with [some_field, id] touples plus a default option" do
+    ActiveRecord::Base.should_receive(:find).with(:all, :conditions => nil).and_return(@records)
+    ActiveRecord::Base.to_select(:some_field, :default => 'None') == [['None', nil], ['some_field1', 1], ['some_field2', 2]]
   end
 
 end

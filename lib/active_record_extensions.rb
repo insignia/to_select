@@ -1,7 +1,9 @@
 module ToSelect
   module ActiveRecordExtensions
-    def to_select(text_method=:name, conditions=nil)
-      find(:all, :conditions => conditions).to_select(text_method)
+    def to_select(text_method=:name, options = {})
+      list = find(:all, :conditions => options[:conditions]).to_select(text_method)
+      list << [options[:default], nil] if options[:default]
+      list
     end
   end
 end
