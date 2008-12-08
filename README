@@ -28,6 +28,20 @@ You can override the field name using a parameter:
 
   <%= f.select :person_id, @people.to_select(:last_name) %>
 
+Aditional Parameters
+====================
+
+* Conditions
+
+<% form_for @account do |form| %>
+  <%= f.select :branch_id, Branch.to_select(:name, :conditions => {:active => true}) %>
+<% end %>
+
+* Default values
+
+<% form_for @account do |form| %>
+  <%= f.select :branch_id, Branch.to_select(:name, :default => 'None') %>
+<% end %>
 
 
 Copyright (c) 2008 Carlos Kozuszko, released under the MIT license

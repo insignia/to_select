@@ -21,4 +21,8 @@ describe Array do
     @records.to_select(:some_field).should == [['some_field1', 1], ['some_field2', 2]]
   end
 
+  it "should return a new array with [some_field, id] touples plus a default option" do
+    @records.to_select(:some_field, :default => 'None').should == [['None', nil], ['some_field1', 1], ['some_field2', 2]]
+  end
+
 end
